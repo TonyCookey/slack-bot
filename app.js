@@ -1,6 +1,7 @@
 const { App } = require('@slack/bolt');
 
-// const helloGreeting = require('./services/hello.greeting')
+const helloResponse = require('./responses/hello.response')
+const hobbiesResponse = require('./responses/hobbies.response')
 
 // Initializes your app with your bot token and app token
 const app = new App({
@@ -13,33 +14,38 @@ const app = new App({
 // Listens to incoming messages that contain "hi"
 app.message('hi', async ({ message, say }) => {
   // say() sends a message to the channel where the event was triggered
-  await say({
-    blocks: [
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": `Hey there <@${message.user}>!`
-        },
-        "accessory": {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "text": "Click Me"
-          },
-          "action_id": "button_click"
-        }
-      }
-    ],
-    text: `Hey there <@${message.user}>!`
-  });
+  await say(`Hey there <@${message.user}>!`);
 });
 
-app.command('/bot', async ({ command, ack, say }) => {
+// Listens to incoming commands
+app.command('/bot', async ({ message, say }) => {
+  await say(`Hey there <@${message.user}>!`);
+  await say(`Type in '/bot hello' to continue...`);
+});
+
+app.command('/bot hello', async ({ ack, say }) => {
+  // Acknowledge command request
+  await ack();
+  await say('Welcome. How are you doing?');
+  await say(helloResponse);
+
+});
+app.action('hello-response-completed', ({ ack, say }) => {
   // Acknowledge command request
   await ack();
 
-  await say('Welcome. How are you doing?');
+  await say('What are your favorite hobbies?');
+
+  await say(hobbiesResponse)
+
+});
+
+app.action('hobbies-response-completed', ({ ack, say, message }) => {
+  // Acknowledge command request
+  await ack();
+
+  await say(`Thank you <@${message.user}>!`);
+
 });
 
 
