@@ -4,7 +4,7 @@
   "description": "A Simple Slack Bot that responds to greetings and pleasantries and has a small short conversation with the slack user",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
