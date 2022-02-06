@@ -37,7 +37,7 @@ app.message('hi', async ({ message, say }) => {
 
 app.command('/bot', async ({ command, ack, say }) => {
   // Acknowledge command request
-  await ack(); hello.greeet
+  await ack();
 
   await say('Welcome. How are you doing?');
 });
