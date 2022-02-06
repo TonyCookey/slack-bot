@@ -36,12 +36,12 @@ app.message('hi', async ({ message, say }) => {
 });
 
 // Listen for a slash command invocation
-app.command('/bot', helloGreeting)
+// app.command('/bot', helloGreeting)
 
 
-  (async () => {
-    // Start your app
-    await app.start(process.env.PORT || 3000);
+(async () => {
+  // Start your app
+  await app.start(process.env.PORT || 3000);
 
-    console.log('⚡️ Slack Bot is online!');
-  })();
+  console.log('⚡️ Slack Bot is online!');
+})();
