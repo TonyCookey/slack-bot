@@ -19,15 +19,19 @@ app.message('hi', async ({ message, say }) => {
 
 // Listens to incoming commands
 app.command('/bot', async ({ command, say }) => {
-  console.log('command => ', command);
-  // await say(`Hey there <@${message.user}>!`);
-  await say(`Type in '/bot hello' to continue...`);
+  await ack();
+
+  await say(`Hey there <@${command.user_name}>!`);
+
+  await say(`Type in '/bot-hello' to continue...`);
 });
 
-app.command('/bot hello', async ({ ack, say }) => {
+app.command('/bot-hello', async ({ ack, say }) => {
   // Acknowledge command request
   await ack();
+
   await say('Welcome. How are you doing?');
+
   await say(helloResponse);
 
 });
@@ -41,10 +45,10 @@ app.action('hello-response-completed', async ({ ack, say }) => {
 
 });
 
-app.action('hobbies-response-completed', async ({ ack, say }) => {
+app.action('hobbies-response-completed', async ({ command, ack, say }) => {
   await ack();
 
-  await say(`Thank you!`);
+  await say(`Thank you <@${command.user_name}>!`);
 
 });
 
