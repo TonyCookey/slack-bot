@@ -1,6 +1,6 @@
 const { App } = require('@slack/bolt');
 
-const helloGreeting = require('./services/hello.greeting')
+// const helloGreeting = require('./services/hello.greeting')
 
 // Initializes your app with your bot token and app token
 const app = new App({
@@ -35,8 +35,12 @@ app.message('hi', async ({ message, say }) => {
   });
 });
 
-// Listen for a slash command invocation
-// app.command('/bot', helloGreeting)
+app.command('/bot', async ({ command, ack, say }) => {
+  // Acknowledge command request
+  await ack(); hello.greeet
+
+  await say('Welcome. How are you doing?');
+});
 
 
 (async () => {
