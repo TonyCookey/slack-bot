@@ -1,10 +1,6 @@
 const { App } = require('@slack/bolt');
 
-/* 
-This sample slack application uses SocketMode
-For the companion getting started setup guide, 
-see: https://slack.dev/bolt-js/tutorial/getting-started 
-*/
+const helloGreeting = require('./services/hello.greeting')
 
 // Initializes your app with your bot token and app token
 const app = new App({
@@ -13,8 +9,8 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN
 });
 
-// Listens to incoming messages that contain "hello"
-app.message('hello', async ({ message, say }) => {
+// Listens to incoming messages that contain "hi"
+app.message('hi', async ({ message, say }) => {
   // say() sends a message to the channel where the event was triggered
   await say({
     blocks: [
@@ -38,15 +34,13 @@ app.message('hello', async ({ message, say }) => {
   });
 });
 
-app.action('button_click', async ({ body, ack, say }) => {
-  // Acknowledge the action
-  await ack();
-  await say(`<@${body.user.id}> clicked the button`);
-});
+// Listen for a slash command invocation
+app.command('/bot', helloGreeting)
 
-(async () => {
-  // Start your app
-  await app.start(process.env.PORT || 3000);
 
-  console.log('⚡️ Bolt app is running!');
-})();
+  (async () => {
+    // Start your app
+    await app.start(process.env.PORT || 3000);
+
+    console.log('⚡️ Slack Bot is online!');
+  })();
