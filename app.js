@@ -30,7 +30,7 @@ app.command('/bot hello', async ({ ack, say }) => {
   await say(helloResponse);
 
 });
-app.action('hello-response-completed', ({ ack, say }) => {
+app.action('hello-response-completed', async ({ ack, say }) => {
   // Acknowledge command request
   await ack();
 
@@ -40,7 +40,7 @@ app.action('hello-response-completed', ({ ack, say }) => {
 
 });
 
-app.action('hobbies-response-completed', ({ ack, say, message }) => {
+app.action('hobbies-response-completed', async ({ ack, say, message }) => {
   // Acknowledge command request
   await ack();
 
